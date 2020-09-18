@@ -154,6 +154,12 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
       ),
+      drawer: Drawer(
+        child: Text("I am the Drawer!"),
+      ),
+      endDrawer: Drawer(
+        child: Text("I am the end Drawer!"),
+      ),
     );
   }
 }
