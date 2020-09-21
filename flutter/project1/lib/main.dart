@@ -21,13 +21,13 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.indigo,
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Hot Reload Demo'),
     );
   }
 }
@@ -63,6 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+  }
+
+  void _decrementCounter() {
+    setState(() => _counter--);
   }
 
   @override
@@ -117,20 +121,13 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            Chip(label: Text(
-              str,
-              style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
-            )),
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0, bottom: 30.0),
-              child: OutlineButton(
-                child: Text("Press Me!"),
-                onPressed: () {
-                  str = "You just pressed the button";
-                  setState(() {
-                  });
-                },
-              ),
+            Row(
+              children: <Widget>[
+            RaisedButton(
+              child: Text("Decrement Counter"),
+              onPressed: _decrementCounter,
+            ),
+      ],
             ),
             FlatButton(
               child: Text("Home"),
@@ -162,4 +159,5 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
 }
