@@ -69,6 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() => _counter--);
   }
 
+  void _resetCounter() {
+    setState(() => _counter = 0);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -122,11 +126,22 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline4,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
             RaisedButton(
-              child: Text("Decrement Counter"),
+              color: Colors.red,
+              child: Text("Decrement",
+              style: TextStyle(color: Colors.white),),
               onPressed: _decrementCounter,
             ),
+                RaisedButton(
+                  color: Colors.green,
+                  child: Text(
+                    "Increment",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: _incrementCounter,
+                ),
       ],
             ),
             FlatButton(
@@ -139,9 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        onPressed: _resetCounter,
+        tooltip: 'Reset counter',
+        child: Icon(Icons.refresh),
       ), // This trailing comma makes auto-formatting nicer for build methods.
       bottomSheet: BottomSheet(
         onClosing: () {},
