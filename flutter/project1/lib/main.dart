@@ -96,7 +96,6 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.teal,
         elevation: 0.0,
       ),
-      backgroundColor: Colors.teal,
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -117,7 +116,10 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.network("https://community.adobe.com/legacyfs/online/1229106_landscape-16.jpg"),
+            Image.asset(
+                "logo_flutter_1080.png",
+              width: 100.0,
+            ),
             Text(
               'You have pushed the button this many times:',
             ),
