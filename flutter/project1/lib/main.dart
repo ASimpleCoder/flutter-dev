@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:system_shortcuts/system_shortcuts.dart';
 
@@ -52,6 +54,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool _reversed = false;
+  List<UniqueKey> _buttonKeys = [UniqueKey(), UniqueKey()];
   String str = "Some more text";
 
   void _incrementCounter() {
@@ -71,6 +75,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _resetCounter() {
     setState(() => _counter = 0);
+    _swap();
+  }
+
+  void _swap() {
+    setState(() {
+      _reversed = !_reversed;
+    });
   }
 
   @override
@@ -81,6 +92,28 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final incrementButton = FancyButton(
+      child: Text(
+        "Increment",
+        style: TextStyle(color: Colors.white),
+      ),
+      onPressed: _incrementCounter,
+    );
+
+    final decrementButton = FancyButton(
+      child: Text(
+        "Decrement",
+        style: TextStyle(color: Colors.white),
+      ),
+      onPressed: _decrementCounter,
+    );
+
+    List<Widget> _buttons = <Widget>[incrementButton, decrementButton];
+
+    if (_reversed) {
+      _buttons = _buttons.reversed.toList();
+    }
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -137,22 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-            RaisedButton(
-              color: Colors.red,
-              child: Text("Decrement",
-              style: TextStyle(color: Colors.white),),
-              onPressed: _decrementCounter,
-            ),
-                RaisedButton(
-                  color: Colors.green,
-                  child: Text(
-                    "Increment",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: _incrementCounter,
-                ),
-      ],
+              children: _buttons
             ),
             FlatButton(
               child: Text("Home"),
@@ -185,4 +203,44 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+}
+
+class FancyButton extends StatefulWidget {
+  final VoidCallback onPressed;
+  final Widget child;
+
+  const FancyButton({Key key, this.onPressed, this.child}) : super(key: key);
+
+  @override
+  _FancyButtonState createState() => _FancyButtonState();
+}
+
+class _FancyButtonState extends State<FancyButton> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      child: RaisedButton(
+        color: _getColors(),
+        child: widget.child,
+        onPressed: widget.onPressed,
+      ),
+    );
+  }
+
+  Color _getColors() {
+    return _buttonColors.putIfAbsent(this, () => colors[next(0, 5)]);
+  }
+
+  Map<_FancyButtonState, Color> _buttonColors = {};
+  final _random = Random();
+  int next(int min, int max) => min + _random.nextInt(max - min);
+  List<Color> colors = [
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.amber,
+    Colors.lightBlue,
+  ];
 }
