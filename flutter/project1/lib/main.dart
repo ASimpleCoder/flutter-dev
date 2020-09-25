@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final incrementButton = FancyButton(
+      key: _buttonKeys.last,
       child: Text(
         "Increment",
         style: TextStyle(color: Colors.white),
@@ -101,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     final decrementButton = FancyButton(
+      key: _buttonKeys.first,
       child: Text(
         "Decrement",
         style: TextStyle(color: Colors.white),
