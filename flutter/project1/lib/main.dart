@@ -188,20 +188,6 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Reset counter',
         child: Icon(Icons.refresh),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-      bottomSheet: BottomSheet(
-        onClosing: () {},
-        builder: (BuildContext context) {
-          return Container(
-            child: Text('Hello'),
-          );
-        },
-      ),
-      drawer: Drawer(
-        child: Text("I am the Drawer!"),
-      ),
-      endDrawer: Drawer(
-        child: Text("I am the end Drawer!"),
-      ),
     );
   }
 
@@ -220,7 +206,6 @@ class FancyButton extends StatefulWidget {
 class _FancyButtonState extends State<FancyButton> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       child: RaisedButton(
         color: _getColors(),
