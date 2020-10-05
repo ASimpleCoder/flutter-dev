@@ -1,39 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:weather_app/models/src/app_settings.dart';
+import 'package:weather_app/page/page_container.dart';
+import 'package:weather_app/styles.dart';
 
 void main() {
-//  AppSettings settings = AppSettings();
+  AppSettings settings = AppSettings();
 
-SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
-.then((_) =>
+  WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MyApp(),
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+      .then((_) => runApp(MyApp(settings: settings,),
   ));
+//  runApp(MyApp(settings: settings,));
 }
 
 class MyApp extends StatelessWidget {
+  final AppSettings settings;
+
+  const MyApp({Key key, this.settings}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final theme = ThemeData(
+      fontFamily: "Cabin",
+      primaryColor: AppColor.midnightSky,
+      accentColor: AppColor.midnightCloud,
+      primaryTextTheme:
+        Theme.of(context).textTheme.apply(
+          bodyColor: AppColor.textColorDark,
+          displayColor: AppColor.textColorDark,
+        ),
+      textTheme: Theme.of(context).textTheme.apply(
+      bodyColor: AppColor.textColorDark,
+      displayColor: AppColor.textColorDark,
+    ),
+    );
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'Weather App',
+      debugShowCheckedModeBanner: false,
+      theme: theme,
+      home: PageContainer(settings: settings),
     );
   }
 }
