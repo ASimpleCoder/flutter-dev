@@ -34,9 +34,13 @@ class _ForecastPageState extends State<ForecastPage> { // TODO add "with" part
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            GestureDetector(
+              onTap: () => print("tapped!"),
+            child:
             Text(
                 "This is the weather app body"
             ),
+            )
           ],
         ),
       )
